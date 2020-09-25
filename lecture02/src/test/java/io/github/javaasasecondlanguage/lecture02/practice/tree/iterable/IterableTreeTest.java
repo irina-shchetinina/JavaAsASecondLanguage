@@ -2,12 +2,17 @@ package io.github.javaasasecondlanguage.lecture02.practice.tree.iterable;
 
 import io.github.javaasasecondlanguage.lecture02.practice.tree.TreeNode;
 import io.github.javaasasecondlanguage.lecture02.practice.tree.TreeNodeImpl;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.StreamSupport;
 
 class IterableTreeTest {
+
+    List<Integer> EXPECTED = List.of(1, 20, 201, 202, 203, 30, 301, 302, 40);
+
     IterableTree tree = new IterableTree(
             node(1,
                     node(20,
@@ -29,10 +34,13 @@ class IterableTreeTest {
         //   1 -> 20 -> 20x -> 20y -> 20z -> 30 -> 30x -> 30y -> 40
         //   1 -> 40 -> 30 -> 30x -> 30y -> 20 -> 20x -> 20y -> 20z
 
+        List<Integer> actual = new ArrayList<>();
 
         for (var node : tree) {
+            actual.add(node);
             System.out.println(node);
         }
+        Assertions.assertEquals(EXPECTED, actual);
     }
 
     @Test
@@ -40,8 +48,14 @@ class IterableTreeTest {
         // any of:
         //   1 -> 20 -> 20x -> 20y -> 20z -> 30 -> 30x -> 30y -> 40
         //   1 -> 40 -> 30 -> 30x -> 30y -> 20 -> 20x -> 20y -> 20z
+        List<Integer> actual = new ArrayList<>();
 
-        tree.forEach(System.out::println);
+        tree.forEach(x -> {
+            actual.add(x);
+            System.out.println(x);
+        });
+
+        Assertions.assertEquals(EXPECTED, actual);
     }
 
     @Test
@@ -49,10 +63,11 @@ class IterableTreeTest {
         // any of:
         //   1 -> 20 -> 20x -> 20y -> 20z -> 30 -> 30x -> 30y -> 40
         //   1 -> 40 -> 30 -> 30x -> 30y -> 20 -> 20x -> 20y -> 20z
-
-        StreamSupport.stream(tree.spliterator(), false).forEach(
-                System.out::println
-        );
+        List<Integer> actual = new ArrayList<>();
+        StreamSupport.stream(tree.spliterator(), false)
+                .peek(actual::add)
+                .forEach(System.out::println);
+        Assertions.assertEquals(EXPECTED, actual);
     }
 
     private static TreeNode<Integer> node(Integer e, TreeNode<Integer>... children) {
