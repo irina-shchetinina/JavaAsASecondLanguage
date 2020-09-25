@@ -55,17 +55,11 @@ public class IterableTree
         // это можно сделать через modCount и expectedModCount, если они не равны во время
         // итераций, то выбрасывать исключение о throw new ConcurrentModificationException();
 
-        Iterator<Integer> it = new Iterator<Integer>() {
+        Iterator<Integer> it = new Iterator<>() {
 
-            private TreeNode<Integer> currentNode = null;
             private TreeNode<Integer> nextNode = root;
             private Stack<StateElement> statesStack = new Stack<>();
-
-            {
-                if (root != null) {
-                    statesStack.push(new StateElement(root, -1));
-                }
-            }
+            private StateElement curState = new StateElement(nextNode, -1);
 
             @Override
             public boolean hasNext() {
@@ -77,64 +71,56 @@ public class IterableTree
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                currentNode = nextNode;
-                nextNode = getNextNode(currentNode);
+                TreeNode<Integer> currentNode = nextNode;
+                nextNode = getNextNode();
                 return currentNode.element();
             }
 
-            private TreeNode<Integer> getNextNode(TreeNode<Integer> currentNode) {
-                StateElement curState = statesStack.peek();
-                List<TreeNode<Integer>> curChildren = curState.getNode().getChildren();
-                if (curChildren != null && !curChildren.isEmpty()) {
-                    nextNode = curChildren.get(0);
-                    curState.setCurChildNumber(0);
-                    statesStack.push(new StateElement(nextNode, -1));
-                    return nextNode;
-                }
-
-                // детей нет, идём выше. У родителя точно есть дети (мы были в одном из них)
-                statesStack.pop();
-                while (!statesStack.empty()) {
-                    curState = statesStack.peek();
-
-                    if (curState.getNode().getChildren().size()
-                            > curState.getCurChildNumber() + 1) {
-
-                        curState.setCurChildNumber(curState.getCurChildNumber() + 1);
-                        nextNode = curState.getNode().getChildren()
-                                .get(curState.getCurChildNumber());
-                        statesStack.push(new StateElement(nextNode, -1));
-                        return nextNode;
-                    } else { // у этой ноды обошли уже всех детей
-                        statesStack.pop();
+            private TreeNode<Integer> getNextNode() {
+                do {
+                    if (hasNextInCurrentState()) {
+                        return processNextInCurrentState();
                     }
-                }
+
+                } while (popState());
                 return null;
+            }
+
+            private boolean hasNextInCurrentState() {
+                return curState.hasNextChild();
+            }
+
+            private TreeNode<Integer> processNextInCurrentState() {
+                final TreeNode<Integer> next = curState.getNext();
+                statesStack.push(curState);
+                curState = new StateElement(next, -1);
+                return next;
+            }
+
+            private boolean popState() {
+                if (statesStack.isEmpty()) {
+                    return false;
+                }
+                curState = statesStack.pop();
+                return true;
             }
 
             class StateElement {
                 private TreeNode<Integer> node;
                 private int curChildNumber;
 
-                public StateElement(TreeNode<Integer> node, int curChildNumber) {
+                StateElement(TreeNode<Integer> node, int curChildNumber) {
                     this.node = node;
                     this.curChildNumber = curChildNumber;
                 }
 
-                public TreeNode<Integer> getNode() {
-                    return node;
+                TreeNode<Integer> getNext() {
+                    return node.getChildren().get(++curChildNumber);
                 }
 
-                public void setNode(TreeNode<Integer> node) {
-                    this.node = node;
-                }
-
-                public int getCurChildNumber() {
-                    return curChildNumber;
-                }
-
-                public void setCurChildNumber(int curChildNumber) {
-                    this.curChildNumber = curChildNumber;
+                boolean hasNextChild() {
+                    return node.getChildren() != null
+                            && node.getChildren().size() > curChildNumber + 1;
                 }
             }
         };
