@@ -6,14 +6,19 @@ import io.github.javaasasecondlanguage.lecture02.practice.tree.TreeNode;
 import java.util.*;
 
 public class IterableTree
-        //extends AbstractTree<Integer>
         implements Tree<Integer>, Iterable<Integer> {
+    // не стала наследовать AbstractTree, просто реализовала нужные
+    // для интерфейса Tree методы
 
     private TreeNode<Integer> root;
 
     public IterableTree(TreeNode<Integer> root) {
-        //super(root);
         this.root = root;
+    }
+
+    @Override
+    public TreeNode<Integer> getRoot() {
+        return root;
     }
 
     public void printTree() {
@@ -57,8 +62,9 @@ public class IterableTree
             private Stack<StateElement> statesStack = new Stack<>();
 
             {
-                if (root != null)
-                statesStack.push(new StateElement(root, -1));
+                if (root != null) {
+                    statesStack.push(new StateElement(root, -1));
+                }
             }
 
             @Override
@@ -86,13 +92,17 @@ public class IterableTree
                     return nextNode;
                 }
 
-                statesStack.pop(); // детей нет, идём выше. У родителя точно есть дети (мы были в одном из них)
+                // детей нет, идём выше. У родителя точно есть дети (мы были в одном из них)
+                statesStack.pop();
                 while (!statesStack.empty()) {
                     curState = statesStack.peek();
 
-                    if (curState.getNode().getChildren().size() > curState.getCurChildNumber() + 1) {
+                    if (curState.getNode().getChildren().size()
+                            > curState.getCurChildNumber() + 1) {
+
                         curState.setCurChildNumber(curState.getCurChildNumber() + 1);
-                        nextNode = curState.getNode().getChildren().get(curState.getCurChildNumber());
+                        nextNode = curState.getNode().getChildren()
+                                .get(curState.getCurChildNumber());
                         statesStack.push(new StateElement(nextNode, -1));
                         return nextNode;
                     } else { // у этой ноды обошли уже всех детей
@@ -129,11 +139,6 @@ public class IterableTree
             }
         };
         return it;
-    }
-
-    @Override
-    public TreeNode<Integer> getRoot() {
-        return root;
     }
 }
 
