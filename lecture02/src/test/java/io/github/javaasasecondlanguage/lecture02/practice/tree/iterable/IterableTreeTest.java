@@ -11,7 +11,7 @@ import java.util.stream.StreamSupport;
 
 class IterableTreeTest {
 
-    List<Integer> EXPECTED = List.of(1, 20, 201, 202, 203, 30, 301, 302, 40);
+    static final List<Integer> EXPECTED = List.of(1, 20, 201, 202, 203, 30, 301, 302, 40);
 
     IterableTree tree = new IterableTree(
             node(1,
