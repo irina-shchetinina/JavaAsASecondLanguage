@@ -3,9 +3,16 @@ package io.github.javaasasecondlanguage.homework02.webserver;
 public class LoggerImpl implements Logger {
 
     private LogLevelEnum minLogLevel;
+    private Printer printer;
 
     public LoggerImpl(LogLevelEnum minLogLevel) {
         this.minLogLevel = minLogLevel;
+        this.printer = System.out::println;
+    }
+
+    public LoggerImpl(LogLevelEnum minLogLevel, Printer printer) {
+        this.minLogLevel = minLogLevel;
+        this.printer = printer;
     }
 
     @Override
@@ -35,7 +42,7 @@ public class LoggerImpl implements Logger {
 
     private void log(String msg, LogLevelEnum msgLogLevel) {
         if (msgLogLevel.getSeverity() >= minLogLevel.getSeverity()) {
-            System.out.println(msg);
+            printer.print(msg);
         }
     }
 
