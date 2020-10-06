@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 public class Application {
     public static void initDI() {
         new Context()
-                .register((Logger) System.out::println)
+                .register(new LoggerImpl(LogLevelEnum.DEBUG))
                 .register(8080, "port")
                 .register("localhost", "host")
                 .register(Executors.newFixedThreadPool(10))
