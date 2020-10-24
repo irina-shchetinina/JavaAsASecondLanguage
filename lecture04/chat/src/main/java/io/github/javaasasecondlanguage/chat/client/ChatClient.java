@@ -39,11 +39,21 @@ public class ChatClient {
     //Body: "msg='my_message'"
     public static HttpResponse<?> say(String name, String msg)
             throws IOException, InterruptedException {
-        throw new RuntimeException("Not implemented");
+        var request = HttpRequest.newBuilder()
+                .POST(HttpRequest.BodyPublishers.ofString("msg='" + msg + "'"))
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .uri(URI.create(PROTOCOL + HOST + PORT + "/chat/say?name=" + name))
+                .build();
+        return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
     //GET host:port/chat/online
     public static HttpResponse<?> viewOnline() throws IOException, InterruptedException {
-        throw new RuntimeException("Not implemented");
+        var request = HttpRequest.newBuilder()
+                .GET()
+                .uri(URI.create(PROTOCOL + HOST + PORT + "/chat/online"))
+                .build();
+        var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        return response;
     }
 }
