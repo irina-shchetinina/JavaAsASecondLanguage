@@ -13,9 +13,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 public class Storage {
-    public static final List<Flit> flits = new ArrayList<>();
-    public static final List<User> users = new ArrayList<>();
-    public static final List<Subscription> subscriptions = new ArrayList<>();
+    public static final List<Flit> flits = new CopyOnWriteArrayList<>();
+    public static final List<User> users = new CopyOnWriteArrayList<>();
+    public static final List<Subscription> subscriptions = new CopyOnWriteArrayList<>();
 
     public static void clear() {
         flits.clear();
