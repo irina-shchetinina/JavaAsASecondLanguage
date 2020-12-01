@@ -40,7 +40,8 @@ public class Tfidf {
                 .join(documentsCountGraph, of())
                 // make smooth_idf (with + 1)
                 .map(new AddColumnMapper("Idf",
-                        r -> Math.log((r.getDouble("DocCountTotal") + 1) / (r.getDouble("DocCountForToken") + 1)) + 1));
+                        r -> Math.log((r.getDouble("DocCountTotal") + 1)
+                                / (r.getDouble("DocCountForToken") + 1)) + 1));
 //                .map(new AddColumnMapper("Idf",
 //                        r -> Math.log(r.getDouble("DocCountTotal") / r.getDouble("DocCountForToken"))));
 

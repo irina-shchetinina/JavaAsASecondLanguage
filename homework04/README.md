@@ -168,6 +168,8 @@ Graph for this task is already implemented in a class [WordCount](src/main/java/
     ```
 Graph for this task should be implemented in a class [Tfidf](src/main/java/io/github/javaasasecondlanguage/homework04/graphs/Tfidf.java), but it is not implemented yet. You should implement and pass the tests in [TfidfTest](src/test/java/io/github/javaasasecondlanguage/homework04/graphs/TfidfTest.java).
 
+Python notebook file [Tfidf](src/main/resources/HW5_java.ipynb) can be used for additional check of right order of tfidf
+
 ## Score
 
 ## Build and test
