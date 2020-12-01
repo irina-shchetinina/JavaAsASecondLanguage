@@ -14,7 +14,7 @@ import static io.github.javaasasecondlanguage.homework04.utils.TestUtils.convert
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class TfidfCountTest {
+class TfidfTest {
 
     private ProcNode inputNode;
     private ProcNode outputNode;
@@ -51,29 +51,43 @@ class TfidfCountTest {
     }
 
     private static final List<Record> inputRecords = convertToRecords(
-            new String[]{"Id", "Author", "Text"},
+            new String[]{"Id", "Text"},
             new Object[][]{
-                    {1, "Garrus", "I'm Garrus Vakarian and this is now my favorite spot on the Citadel."},
-                    {2, "Illusive", "Strength for Cerberus is strength for every human. Cerberus is humanity."},
-                    {3, "Tali", "After time adrift among open stars, along tides of light and through shoals of dust, I will return to where I began."},
-                    {4, "Miranda", "I settle for nothing but the best."},
-                    {5, "Legion", "Geth do not intentionally infiltrate."},
-                    {6, "Illusive", "You're unique. Not just in terms of what you've accomplished, but what you represent."},
-                    {7, "Garrus", "Can it wait for a bit? I'm in the middle of some calibrations."},
-                    {8, "Legion", "Does this unit have a soul?"},
-                    {9, "Mordin", "Lots of ways to help people. Sometimes heal patients; sometimes execute dangerous people. Either way helps."},
-                    {10, "Miranda", "We're all asking you to do the impossible, Shepard. No pressure."},
-                    {11, "Garrus", "I had reach, but she had flexibility."},
-                    {12, "Garrus", "You know me, always like to savor that last shot before popping the heat sink."},
-                    {13, "Legion", "Does this unit have a soul?"},
-                    {14, "Mordin", "No glands, replaced by tech. No digestive system, replaced by tech. No soul. Replaced by tech."},
+                    {1, "You were born with potential."},
+                    {2, "You were born with goodness and trust."},
+//                    {3, "You were born with ideals and dreams."},
+//                    {4, "You were born with greatness."},
+//                    {5, "You were born with wings."},
+//                    {6, "You are not meant for crawling, so don't."},
+                    {7, "You have wings."},
+                    {8, "Learn to use them and fly."},
             }
     );
 
     private static final List<Record> expectedRecords = convertToRecords(
-            new String[]{"Author", "TotalWords"},
+            new String[]{"Id", "Token", "TfIdf"},
             new Object[][]{
-                    {"Garrus", 50},
+                    {1, "you", 0.245},
+                    {1, "born", 0.302},
+                    {1, "were", 0.302},
+                    {1, "with", 0.302},
+                    {1, "potential", 0.383},
+                    {2, "you", 0.175},
+                    {2, "and", 0.216},
+                    {2, "born", 0.216},
+                    {2, "were", 0.216},
+                    {2, "with", 0.216},
+                    {2, "goodness", 0.274},
+                    {2, "trust", 0.274},
+                    {7, "you", 0.408},
+                    {7, "have", 0.639},
+                    {7, "wings", 0.639},
+                    {8, "and", 0.252},
+                    {8, "fly", 0.319},
+                    {8, "learn", 0.319},
+                    {8, "them", 0.319},
+                    {8, "to", 0.319},
+                    {8, "use", 0.319},
             }
     );
 }

@@ -96,7 +96,7 @@ Since graph is a non-linear data structure, it is difficult to create a convenie
 We have a single-module gradle project. It includes a lot of things:
 * All basic classes in the [root](src/main/java/io/github/javaasasecondlanguage/homework04) package.
 * Different node types (one not implemented), in package [nodes](src/main/java/io/github/javaasasecondlanguage/homework04/nodes).
-* Different operators (most of them not implemented), in package [operators](src/main/java/io/github/javaasasecondlanguage/homework04/operators).
+* Different operators (most of them not implemented), in package [operators](src/main/java/io/github/javaasasecondlanguage/homework04/ops).
 * Different graphs (only one implemented), in package  [graphs](src/main/java/io/github/javaasasecondlanguage/homework04/graphs).
 * Utilities for visualizing graphs in package [ui](src/main/java/io/github/javaasasecondlanguage/homework04/ui). 
 
@@ -164,9 +164,9 @@ Graph for this task is already implemented in a class [WordCount](src/main/java/
     ```
 * **Output**: stream of records like:
     ```json
-    {"Token": "in", "Tfidf": 0.205}
+    {"Id": 1, "Token": "in", "Tfidf": 0.205}
     ```
-Graph for this task should be implemented in a class [Tfidf](src/main/java/io/github/javaasasecondlanguage/homework04/graphs/WordCount.java), but some operators are not implemented yet. You must implement these operators (as part of task "Operators toolbox") and pass the tests in [WordCountTest](src/test/java/io/github/javaasasecondlanguage/homework04/graphs/TfidfTest.java).
+Graph for this task should be implemented in a class [Tfidf](src/main/java/io/github/javaasasecondlanguage/homework04/graphs/Tfidf.java), but it is not implemented yet. You should implement and pass the tests in [TfidfTest](src/test/java/io/github/javaasasecondlanguage/homework04/graphs/TfidfTest.java).
 
 ## Score
 

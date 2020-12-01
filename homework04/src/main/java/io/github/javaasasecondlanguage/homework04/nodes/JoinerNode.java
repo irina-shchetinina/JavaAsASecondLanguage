@@ -63,9 +63,9 @@ public class JoinerNode implements ProcNode {
 
     private void joinAndCollect() {
         for (Record leftRecord : leftAccumulatedRecords) {
+            var leftKeyRecord = leftRecord.copyColumns(keyColumns);
             for (Record rightRecord : rightAccumulatedRecords) {
-                // TODO turn leftRecord.copyColumns(keyColumns) to outer 'for' maybe
-                if (leftRecord.copyColumns(keyColumns).equals(rightRecord.copyColumns(keyColumns))) {
+                if (leftKeyRecord.equals(rightRecord.copyColumns(keyColumns))) {
                     final Record collectedRecord = new Record(leftRecord.getData())
                             .setAll(rightRecord.getData());
                     getCollector().collect(collectedRecord);
