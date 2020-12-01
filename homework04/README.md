@@ -155,7 +155,18 @@ You must implement the following operators (and pass tests for them):
 
 Graph for this task is already implemented in a class [WordCount](src/main/java/io/github/javaasasecondlanguage/homework04/graphs/WordCount.java), but some operators are not implemented yet. You must implement these operators (as part of task "Operators toolbox") and pass the tests in [WordCountTest](src/test/java/io/github/javaasasecondlanguage/homework04/graphs/WordCountTest.java). 
 
-#### Problem 1: to be done
+#### Problem 1: TFIDF
+
+* **Task**: Calculate TF-IDF for tokens in texts
+* **Input**: stream of records like:
+    ```json
+    {"Id": 1, "Author": "Caesar", "Text": "Et tu, Brute"}
+    ```
+* **Output**: stream of records like:
+    ```json
+    {"Token": "in", "Tfidf": 0.205}
+    ```
+Graph for this task should be implemented in a class [Tfidf](src/main/java/io/github/javaasasecondlanguage/homework04/graphs/WordCount.java), but some operators are not implemented yet. You must implement these operators (as part of task "Operators toolbox") and pass the tests in [WordCountTest](src/test/java/io/github/javaasasecondlanguage/homework04/graphs/TfidfTest.java).
 
 ## Score
 
